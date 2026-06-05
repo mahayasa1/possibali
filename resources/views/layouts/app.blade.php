@@ -22,7 +22,7 @@
      PAGE LOADER
      ═══════════════════════════════════════ -->
 <div id="page-loader">
-  <div class="loader-logo">POSSI BALI</div>
+  <div class="loader-logo"> <img src="{{ asset('img/possi_logo.png') }}" alt="POSSI Bali Logo"> POSSI BALI</div>
   <div class="loader-bar">
     <div class="loader-bar-fill"></div>
   </div>
@@ -67,7 +67,7 @@
     </a>
     <a href="{{ url('/clubs') }}"
        class="nav-link {{ request()->is('clubs*') ? 'active' : '' }}">
-      Members
+      Clubs
     </a>
     <a href="{{ url('/contact') }}"
        class="nav-link {{ request()->is('contact*') ? 'active' : '' }}">
@@ -257,13 +257,16 @@
     </div><!-- /.footer-grid -->
 
     <div class="footer-bottom">
-      <div class="footer-copy">
-        © {{ date('Y') }} POSSI Bali — Persatuan Olahraga Selam Seluruh Indonesia Cabang Bali.
-        Hak cipta dilindungi.
-      </div>
-      <div class="footer-made">
-        Dibuat dengan <span>♥</span> untuk laut Indonesia
-      </div>
+        <div class="footer-copy">
+          <div class="footer-main">
+            © {{ date('Y') }} POSSI Bali — Hak cipta dilindungi.
+          </div>
+      
+          <div class="footer-powered">
+            <img src="{{ asset('img/logo.png') }}" alt="SKYNUSA TECH Logo">
+            Developed by SKYNUSA TECH
+          </div>
+        </div>
     </div>
   </div>
 </footer>

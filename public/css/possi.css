@@ -1171,14 +1171,37 @@ textarea.form-control { resize: vertical; min-height: 110px; }
 .footer-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding-top: 2rem;
   border-top: 1px solid rgba(90, 200, 230, 0.08);
 }
 
 .footer-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* center horizontal */
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
   font-size: 0.8rem;
-  color: rgba(247, 251, 252, 0.3);
+  color: rgba(247, 251, 252, 0.45);
+}
+
+/* Baris bawah (logo + text) */
+.footer-powered {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.7;
+}
+
+/* Logo kecil & subtle */
+.footer-powered img {
+  width: auto;
+  height: 30px;
+  object-fit: contain;
+  opacity: 0.7;
+  filter: grayscale(100%) brightness(1.5);
 }
 
 .footer-made {
@@ -1242,10 +1265,20 @@ textarea.form-control { resize: vertical; min-height: 110px; }
 }
 
 .loader-logo {
+  text-align: center;
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 600;
   color: var(--ocean-foam);
+  letter-spacing: 1px;
+}
+
+.loader-logo img {
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
 .loader-bar {
@@ -1692,6 +1725,42 @@ textarea.form-control { resize: vertical; min-height: 110px; }
   inset: 0;
   background: radial-gradient(ellipse 40% 60% at 20% 80%, rgba(26, 179, 216, 0.08) 0%, transparent 60%);
   pointer-events: none;
+}
+
+/* ── PAGE HEADER LOGO ── */
+.page-header-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+  background: radial-gradient(circle at center bottom, rgba(0,0,0,0.4), transparent 70%);
+}
+
+.page-header-logo img {
+  width: 500px;
+  height: auto;
+
+  filter: 
+    drop-shadow(0 20px 25px rgba(255,255,255,0.6))  /* glow putih utama */
+    drop-shadow(0 30px 45px rgba(255,255,255,0.4))  /* spread bawah */
+    drop-shadow(0 0 20px rgba(255,255,255,0.5));   /* aura sekitar */
+
+  transition: transform 0.4s ease, filter 0.4s ease;
+  animation: floatLogo 4s ease-in-out infinite;
+}
+
+/* Hover subtle effect */
+.page-header-logo img:hover {
+  transform: translateY(-3px) scale(1.05);
+
+  filter: 
+    drop-shadow(0 25px 30px rgba(255,255,255,0.8))
+    drop-shadow(0 40px 60px rgba(255,255,255,0.6))
+    drop-shadow(0 0 40px rgba(255,255,255,0.8));
+}
+
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 .page-header-eyebrow {
