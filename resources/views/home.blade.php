@@ -1,47 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>POSSI Bali</title>
+@extends('layouts.app')
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/possi.css">
-</head>
-<body>
+@section('title', 'POSSI Bali')
 
-<!-- LOADER -->
-<div id="page-loader">
-  <div class="loader-logo">POSSI BALI</div>
-  <div class="loader-bar">
-    <div class="loader-bar-fill"></div>
-  </div>
-</div>
-
-<!-- NAVBAR -->
-<header class="navbar">
-  <div class="navbar-brand">
-    <div class="navbar-logo">PB</div>
-    <div class="navbar-title">
-      POSSI Bali
-      <span>Diving Organization</span>
-    </div>
-  </div>
-
-  <nav class="navbar-nav">
-    <a href="#home" class="nav-link">Home</a>
-    <a href="#about" class="nav-link">About</a>
-    <a href="#news" class="nav-link">News</a>
-    <a href="#events" class="nav-link">Events</a>
-    <a href="#gallery" class="nav-link">Gallery</a>
-    <a href="#contact" class="nav-link">Contact</a>
-  </nav>
-
-  <button class="navbar-toggler">
-    <span></span><span></span><span></span>
-  </button>
-</header>
-
+@section('content')
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
@@ -233,16 +194,4 @@
 
   </div>
 </section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2026 POSSI Bali</div>
-  </div>
-</footer>
-
-<!-- JS -->
-<script src="js/possi.js"></script>
-
-</body>
-</html>
+@endsection

@@ -84,8 +84,6 @@ ul { list-style: none; }
 .navbar-logo {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, var(--ocean-teal), var(--ocean-bright));
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,7 +91,6 @@ ul { list-style: none; }
   font-weight: 700;
   font-size: 18px;
   color: #fff;
-  box-shadow: 0 4px 16px rgba(26, 179, 216, 0.4);
   flex-shrink: 0;
 }
 
@@ -1339,3 +1336,496 @@ textarea.form-control { resize: vertical; min-height: 110px; }
   .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
+
+#page-loader {
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Saat loader disembunyikan (dari possi.js) */
+#page-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Saat transisi navigasi dipicu */
+#page-loader.transitioning {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  /* Efek masuk dari bawah agar terasa "baru" */
+  animation: loaderFadeIn 0.25s ease forwards;
+}
+
+@keyframes loaderFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── NAVBAR BRAND LINK ── */
+.navbar-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── NAVBAR REGISTER BUTTON ── */
+.btn-nav-register {
+  padding: 8px 18px !important;
+  font-size: 0.82rem !important;
+}
+
+/* ── USER MENU (Logged-in state) ── */
+.navbar-user-menu {
+  position: relative;
+}
+
+.btn-nav-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  background: var(--glass-bg);
+  border: 1.5px solid var(--glass-border);
+  border-radius: 99px;
+  color: var(--ocean-white);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-nav-user:hover {
+  border-color: var(--ocean-bright);
+  background: rgba(26, 179, 216, 0.12);
+}
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ocean-teal), var(--ocean-bright));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.user-name-short {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* User Dropdown */
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 220px;
+  background: rgba(10, 22, 40, 0.97);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+  z-index: 500;
+  overflow: hidden;
+}
+
+.user-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.user-dropdown-header {
+  padding: 14px 16px;
+}
+
+.user-dropdown-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ocean-white);
+  margin-bottom: 3px;
+}
+
+.user-dropdown-email {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-dropdown-divider {
+  height: 1px;
+  background: var(--glass-border);
+  margin: 0;
+}
+
+.user-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: rgba(247, 251, 252, 0.75);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: left;
+  transition: all var(--transition);
+}
+
+.user-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ocean-white);
+}
+
+.user-dropdown-item svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+
+.user-dropdown-item:hover svg {
+  opacity: 1;
+}
+
+.user-dropdown-logout {
+  color: rgba(224, 92, 58, 0.8);
+}
+
+.user-dropdown-logout:hover {
+  background: rgba(224, 92, 58, 0.1);
+  color: var(--ocean-coral);
+}
+
+/* ── FLASH MESSAGES (top-right toast) ── */
+.flash-container {
+  position: fixed;
+  top: 88px;
+  right: 24px;
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.flash-alert {
+  pointer-events: all;
+  min-width: 300px;
+  max-width: 420px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: flashSlideIn 0.35s ease forwards;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.flash-alert svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.flash-close {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  opacity: 0.6;
+  padding: 0 0 0 4px;
+  transition: opacity var(--transition);
+}
+
+.flash-close:hover {
+  opacity: 1;
+}
+
+.alert-warning {
+  background: rgba(212, 168, 83, 0.18);
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  color: #f0c060;
+}
+
+@keyframes flashSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── FOOTER CONTACT ITEMS ── */
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: rgba(247, 251, 252, 0.45);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.footer-contact-item svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.6;
+}
+
+/* ── SCROLL TO TOP BUTTON ── */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 700;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ocean-teal), var(--ocean-bright));
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(26, 179, 216, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all 0.3s ease;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(26, 179, 216, 0.55);
+}
+
+/* ── BREADCRUMB (optional component) ── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 16px 0;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb-item a {
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.breadcrumb-item a:hover {
+  color: var(--ocean-bright);
+}
+
+.breadcrumb-item.active {
+  color: var(--ocean-foam);
+}
+
+.breadcrumb-sep {
+  color: var(--glass-border);
+  font-size: 0.65rem;
+}
+
+/* ── PAGE HEADER (inner pages) ── */
+.page-header {
+  padding: 120px 2rem 60px;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(14, 107, 138, 0.3) 0%, transparent 70%),
+    linear-gradient(170deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 40% 60% at 20% 80%, rgba(26, 179, 216, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.page-header-eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ocean-bright);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header-desc {
+  font-size: 1rem;
+  color: rgba(247, 251, 252, 0.65);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.75;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── PAGINATION ── */
+.pagination-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-item .page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(247, 251, 252, 0.65);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.page-item .page-link:hover {
+  background: rgba(26, 179, 216, 0.15);
+  border-color: var(--ocean-bright);
+  color: var(--ocean-white);
+}
+
+.page-item.active .page-link {
+  background: linear-gradient(135deg, var(--ocean-teal), var(--ocean-bright));
+  border-color: transparent;
+  color: #fff;
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.empty-state-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.4;
+}
+
+.empty-state-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: rgba(247, 251, 252, 0.6);
+}
+
+.empty-state-desc {
+  font-size: 0.9rem;
+  color: rgba(247, 251, 252, 0.35);
+  max-width: 380px;
+  margin: 0 auto 2rem;
+}
+
+/* ── RESPONSIVE ADDITIONS ── */
+@media (max-width: 768px) {
+  .flash-container {
+    top: auto;
+    bottom: 24px;
+    right: 16px;
+    left: 16px;
+  }
+
+  .flash-alert {
+    min-width: unset;
+    max-width: 100%;
+  }
+
+  .scroll-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .page-header {
+    padding: 100px 1.5rem 48px;
+  }
+
+  .navbar-actions .btn-nav-register {
+    display: none;
+  }
+}
+ 
