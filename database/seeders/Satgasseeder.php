@@ -1,0 +1,218 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Satgas;
+use Illuminate\Database\Seeder;
+
+class SatgasSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $personels = [
+            // ── SAR ──────────────────────────────────────────────────────
+            [
+                'name'            => 'Kol. (Purn.) I Wayan Surya',
+                'role'            => 'Komandan Satgas SAR',
+                'unit'            => 'sar',
+                'badge'           => 'Komandan',
+                'avatar_initials' => 'WS',
+                'joined_year'     => 2018,
+                'certifications'  => ['CMAS★★★', 'Rescue Diver', 'DAN Pro'],
+                'phone'           => '+62 812 1000 0001',
+                'email'           => 'wayan.surya@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Capt. Nyoman Artha',
+                'role'            => 'Wakil Komandan SAR',
+                'unit'            => 'sar',
+                'badge'           => 'Wakil Komandan',
+                'avatar_initials' => 'NA',
+                'joined_year'     => 2019,
+                'certifications'  => ['PADI Rescue', 'Swiftwater Rescue', 'CMAS★★'],
+                'phone'           => '+62 813 1000 0002',
+                'email'           => 'nyoman.artha@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'I Kadek Wisnu',
+                'role'            => 'Tim Penyelam SAR Utama',
+                'unit'            => 'sar',
+                'badge'           => 'Tim Inti',
+                'avatar_initials' => 'KW',
+                'joined_year'     => 2020,
+                'certifications'  => ['CMAS★★', 'Rescue Diver', 'First Aid'],
+                'phone'           => '+62 814 1000 0003',
+                'email'           => 'kadek.wisnu@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Putu Eka Dharma',
+                'role'            => 'Koordinator Logistik SAR',
+                'unit'            => 'sar',
+                'badge'           => 'Koordinator',
+                'avatar_initials' => 'PE',
+                'joined_year'     => 2021,
+                'certifications'  => ['CMAS★★', 'Rescue Diver'],
+                'phone'           => '+62 815 1000 0004',
+                'email'           => 'putu.eka@possibali.org',
+                'is_active'       => true,
+            ],
+
+            // ── KONSERVASI ───────────────────────────────────────────────
+            [
+                'name'            => 'Dr. Luh Putu Ariasih',
+                'role'            => 'Koordinator Konservasi',
+                'unit'            => 'konservasi',
+                'badge'           => 'Koordinator',
+                'avatar_initials' => 'LA',
+                'joined_year'     => 2017,
+                'certifications'  => ['Marine Biologist', 'Reef Check', 'CMAS★★★'],
+                'phone'           => '+62 816 2000 0001',
+                'email'           => 'luh.ariasih@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Made Suardika',
+                'role'            => 'Spesialis Terumbu Karang',
+                'unit'            => 'konservasi',
+                'badge'           => 'Spesialis',
+                'avatar_initials' => 'MS',
+                'joined_year'     => 2019,
+                'certifications'  => ['Reef Restoration', 'CMAS★★', 'Coral Watch'],
+                'phone'           => '+62 817 2000 0002',
+                'email'           => 'made.suardika@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Ni Luh Kartini',
+                'role'            => 'Koordinator Bersih Laut',
+                'unit'            => 'konservasi',
+                'badge'           => 'Koordinator',
+                'avatar_initials' => 'NK',
+                'joined_year'     => 2021,
+                'certifications'  => ['PADI Open Water', 'Marine Debris', 'EFR'],
+                'phone'           => '+62 818 2000 0003',
+                'email'           => 'ni.kartini@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Wayan Bayu Pratama',
+                'role'            => 'Fotografer & Dokumentasi Laut',
+                'unit'            => 'konservasi',
+                'badge'           => 'Tim Inti',
+                'avatar_initials' => 'BP',
+                'joined_year'     => 2022,
+                'certifications'  => ['CMAS★', 'Underwater Photographer', 'Reef Check'],
+                'phone'           => '+62 819 2000 0004',
+                'email'           => 'bayu.pratama@possibali.org',
+                'is_active'       => true,
+            ],
+
+            // ── PRESTASI ─────────────────────────────────────────────────
+            [
+                'name'            => 'Gede Mahendra',
+                'role'            => 'Kepala Pelatih Nasional',
+                'unit'            => 'prestasi',
+                'badge'           => 'Kepala Pelatih',
+                'avatar_initials' => 'GM',
+                'joined_year'     => 2015,
+                'certifications'  => ['CMAS Coach A', 'SSI Instructor', 'Freediving Instructor'],
+                'phone'           => '+62 812 3000 0001',
+                'email'           => 'gede.mahendra@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Putu Indra Wijaya',
+                'role'            => 'Pelatih Freediving',
+                'unit'            => 'prestasi',
+                'badge'           => 'Pelatih',
+                'avatar_initials' => 'IW',
+                'joined_year'     => 2018,
+                'certifications'  => ['AIDA Instructor', 'CMAS★★★', 'Molchanovs Wave 3'],
+                'phone'           => '+62 813 3000 0002',
+                'email'           => 'indra.wijaya@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Dewa Ayu Sari',
+                'role'            => 'Juri Nasional Selam',
+                'unit'            => 'prestasi',
+                'badge'           => 'Juri',
+                'avatar_initials' => 'DS',
+                'joined_year'     => 2020,
+                'certifications'  => ['FINA Judge', 'CMAS Official', 'POSSI Judge'],
+                'phone'           => '+62 814 3000 0003',
+                'email'           => 'dewa.sari@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Komang Aditya',
+                'role'            => 'Pelatih Fisik & Kondisi',
+                'unit'            => 'prestasi',
+                'badge'           => 'Pelatih',
+                'avatar_initials' => 'KA',
+                'joined_year'     => 2021,
+                'certifications'  => ['Sport Science', 'CMAS★★', 'Strength Coach'],
+                'phone'           => '+62 815 3000 0004',
+                'email'           => 'komang.aditya@possibali.org',
+                'is_active'       => true,
+            ],
+
+            // ── REGULASI ─────────────────────────────────────────────────
+            [
+                'name'            => 'I Nyoman Sudarsana',
+                'role'            => 'Kepala Pengawas Regulasi',
+                'unit'            => 'regulasi',
+                'badge'           => 'Kepala',
+                'avatar_initials' => 'NS',
+                'joined_year'     => 2016,
+                'certifications'  => ['POSSI Inspector', 'Safety Officer', 'CMAS★★★'],
+                'phone'           => '+62 816 4000 0001',
+                'email'           => 'nyoman.sudarsana@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Wayan Ari Pratama',
+                'role'            => 'Inspektur Keselamatan',
+                'unit'            => 'regulasi',
+                'badge'           => 'Inspektur',
+                'avatar_initials' => 'AP',
+                'joined_year'     => 2019,
+                'certifications'  => ['DAN Instructor', 'Safety Diver', 'PADI Rescue'],
+                'phone'           => '+62 817 4000 0002',
+                'email'           => 'ari.pratama@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Ketut Sri Wahyuni',
+                'role'            => 'Administrator Sertifikasi',
+                'unit'            => 'regulasi',
+                'badge'           => 'Administrator',
+                'avatar_initials' => 'SW',
+                'joined_year'     => 2022,
+                'certifications'  => ['POSSI Admin', 'CMAS★', 'Dive Computer Tech'],
+                'phone'           => '+62 818 4000 0003',
+                'email'           => 'sri.wahyuni@possibali.org',
+                'is_active'       => true,
+            ],
+            [
+                'name'            => 'Bagus Wirawan',
+                'role'            => 'Auditor Standar Club',
+                'unit'            => 'regulasi',
+                'badge'           => 'Auditor',
+                'avatar_initials' => 'BW',
+                'joined_year'     => 2020,
+                'certifications'  => ['POSSI Inspector', 'CMAS★★', 'Quality Auditor'],
+                'phone'           => '+62 819 4000 0004',
+                'email'           => 'bagus.wirawan@possibali.org',
+                'is_active'       => true,
+            ],
+        ];
+
+        foreach ($personels as $p) {
+            Satgas::create($p);
+        }
+    }
+}
