@@ -38,8 +38,8 @@
         <img src="{{ asset('img/possi_logo.png') }}" alt="POSSI Bali Logo">
       </div>
       <div class="navbar-title">
-        POSSI Bali
-        <span>Diving Organization</span>
+        POSSI BALI
+        <span>PERSATUAN OLAHRAGA SELAM SELURUH INDONESIA</span>
       </div>
     </a>
   </div>
@@ -114,7 +114,7 @@
         </div>
       </div>
     @else
-      <a href="#" class="btn-nav-login">Masuk</a>
+      <a href="{{ route('login') }}" class="btn-nav-login">Masuk</a>
       @if(Route::has('register'))
         <a href="{{ route('register') }}" class="btn-primary btn-nav-register">
           <span>Daftar</span>

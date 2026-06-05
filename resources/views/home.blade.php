@@ -14,7 +14,7 @@
     <div>
       <div class="hero-eyebrow">POSSI BALI</div>
       <h1 class="hero-title">
-        Explore the <span class="highlight">Ocean</span>
+        INDONESIA SUBAQUATIC SPORTS ASSOCIATION
       </h1>
       <p class="hero-desc">
         Organisasi selam resmi di Bali untuk pengembangan atlet, edukasi,

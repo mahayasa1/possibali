@@ -23,20 +23,20 @@
   <div class="container">
     <div class="club-stats-grid fade-in-up">
       <div class="club-stat-item">
-        <div class="club-stat-value" data-counter data-target="48">0</div>
+        <div class="club-stat-value" data-counter data-target="{{ $stats['total_clubs'] }}">0</div>
         <div class="club-stat-label">Club Terdaftar</div>
       </div>
       <div class="club-stat-item">
-        <div class="club-stat-value" data-counter data-target="1240">0</div>
+        <div class="club-stat-value" data-counter data-target="{{ $stats['total_members'] }}">0</div>
         <div class="club-stat-label">Total Anggota</div>
       </div>
       <div class="club-stat-item">
-        <div class="club-stat-value" data-counter data-target="9">0</div>
+        <div class="club-stat-value" data-counter data-target="{{ $stats['total_areas'] }}">0</div>
         <div class="club-stat-label">Kabupaten / Kota</div>
       </div>
       <div class="club-stat-item">
-        <div class="club-stat-value" data-counter data-target="320">0</div>
-        <div class="club-stat-label">Atlet Aktif</div>
+        <div class="club-stat-value" data-counter data-target="{{ $clubs->where('is_champion', true)->count() }}">0</div>
+        <div class="club-stat-label">Club Berprestasi</div>
       </div>
     </div>
   </div>
@@ -48,11 +48,11 @@
     <div class="club-filter-bar fade-in-up">
       <div class="filter-tabs" role="tablist">
         <button class="filter-tab active" data-filter="semua" role="tab">Semua</button>
-        <button class="filter-tab" data-filter="denpasar" role="tab">Denpasar</button>
-        <button class="filter-tab" data-filter="badung" role="tab">Badung</button>
-        <button class="filter-tab" data-filter="karangasem" role="tab">Karangasem</button>
-        <button class="filter-tab" data-filter="buleleng" role="tab">Buleleng</button>
-        <button class="filter-tab" data-filter="klungkung" role="tab">Klungkung</button>
+        @foreach($areas as $area)
+        <button class="filter-tab" data-filter="{{ $area }}" role="tab">
+          {{ ucfirst($area) }}
+        </button>
+        @endforeach
       </div>
       <div class="filter-search">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -69,26 +69,14 @@
 <section class="section" style="padding-top:2rem; background:var(--ocean-deep);">
   <div class="container">
 
+    @if($clubs->count() > 0)
     <div class="club-grid" id="clubGrid">
-
-      @php
-        $clubs = [
-          ['name'=>'Barracuda Dive Club','city'=>'Denpasar','area'=>'denpasar','icon'=>'🐟','since'=>'2003','members'=>87,'specialty'=>'Freediving & Kompetisi','verified'=>true,'champ'=>true],
-          ['name'=>'Blue Coral Divers','city'=>'Badung','area'=>'badung','icon'=>'🪸','since'=>'2008','members'=>64,'specialty'=>'Reef Conservation','verified'=>true,'champ'=>false],
-          ['name'=>'Manta Ray Club','city'=>'Karangasem','area'=>'karangasem','icon'=>'🦈','since'=>'2011','members'=>52,'specialty'=>'Deep Diving & Photography','verified'=>true,'champ'=>true],
-          ['name'=>'Tulamben Divers','city'=>'Karangasem','area'=>'karangasem','icon'=>'⚓','since'=>'2006','members'=>78,'specialty'=>'Wreck Diving','verified'=>true,'champ'=>false],
-          ['name'=>'Pemuteran Sea Club','city'=>'Buleleng','area'=>'buleleng','icon'=>'🐬','since'=>'2014','members'=>41,'specialty'=>'Marine Education','verified'=>true,'champ'=>false],
-          ['name'=>'Lovina Ocean Club','city'=>'Buleleng','area'=>'buleleng','icon'=>'🌊','since'=>'2010','members'=>55,'specialty'=>'Snorkeling & Freediving','verified'=>true,'champ'=>false],
-          ['name'=>'Nusa Penida Divers','city'=>'Klungkung','area'=>'klungkung','icon'=>'🐙','since'=>'2015','members'=>49,'specialty'=>'Pelagic Diving','verified'=>true,'champ'=>true],
-          ['name'=>'Kuta Sea Warriors','city'=>'Badung','area'=>'badung','icon'=>'🏄','since'=>'2009','members'=>93,'specialty'=>'Rescue Diving','verified'=>true,'champ'=>false],
-          ['name'=>'Sanur Dive Society','city'=>'Denpasar','area'=>'denpasar','icon'=>'🐠','since'=>'2005','members'=>72,'specialty'=>'Scuba & Night Diving','verified'=>true,'champ'=>false],
-        ];
-      @endphp
-
       @foreach($clubs as $i => $club)
-      <div class="club-card fade-in-up delay-{{ ($i % 3) + 1 }}" data-area="{{ $club['area'] }}" data-name="{{ strtolower($club['name']) }}">
+      <div class="club-card fade-in-up delay-{{ ($i % 3) + 1 }}"
+           data-area="{{ $club->area }}"
+           data-name="{{ strtolower($club->name) }}">
 
-        @if($club['champ'])
+        @if($club->is_champion)
         <div class="club-champion-ribbon">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3.2L12 4.7l-2.5 2.4.6 3.4L7 9l-3.1 1.5.6-3.4L2 4.7l3.5-.5L7 1z" fill="currentColor"/></svg>
           Juara
@@ -96,8 +84,8 @@
         @endif
 
         <div class="club-card-header">
-          <div class="club-icon">{{ $club['icon'] }}</div>
-          @if($club['verified'])
+          <div class="club-icon">{{ $club->icon ?? '🤿' }}</div>
+          @if($club->is_verified)
           <div class="club-verified" title="Club Terverifikasi POSSI Bali">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.1 2.3 2.5.4-1.8 1.7.4 2.5L6 6.8 3.8 7.9l.4-2.5L2.4 3.7l2.5-.4L6 1z" fill="var(--ocean-bright)"/></svg>
             Terverifikasi
@@ -106,40 +94,40 @@
         </div>
 
         <div class="club-card-body">
-          <h3 class="club-name">{{ $club['name'] }}</h3>
+          <h3 class="club-name">{{ $club->name }}</h3>
           <div class="club-city">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1C4.34 1 3 2.34 3 4c0 2.84 3 6 3 6s3-3.16 3-6c0-1.66-1.34-3-3-3zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" fill="currentColor" opacity=".6"/></svg>
-            {{ $club['city'] }}, Bali
+            {{ $club->city }}, Bali
           </div>
-          <div class="club-specialty">{{ $club['specialty'] }}</div>
+          @if($club->specialty)
+          <div class="club-specialty">{{ $club->specialty }}</div>
+          @endif
 
           <div class="club-stats-row">
             <div class="club-mini-stat">
-              <div class="club-mini-val">{{ $club['members'] }}</div>
+              <div class="club-mini-val">{{ number_format($club->member_count) }}</div>
               <div class="club-mini-label">Anggota</div>
             </div>
             <div class="club-mini-stat-div"></div>
             <div class="club-mini-stat">
-              <div class="club-mini-val">{{ $club['since'] }}</div>
+              <div class="club-mini-val">{{ $club->established_year }}</div>
               <div class="club-mini-label">Berdiri</div>
             </div>
             <div class="club-mini-stat-div"></div>
             <div class="club-mini-stat">
-              <div class="club-mini-val">{{ date('Y') - $club['since'] }}</div>
+              <div class="club-mini-val">{{ $club->age }}</div>
               <div class="club-mini-label">Tahun</div>
             </div>
           </div>
         </div>
 
         <div class="club-card-footer">
-          <a href="{{ url('/club/'.Str::slug($club['name'])) }}" class="btn-outline btn-sm">Lihat Detail</a>
-          <a href="{{ url('/club/'.Str::slug($club['name']).'/join') }}" class="btn-primary btn-sm"><span>Bergabung</span></a>
+          <a href="{{ route('clubs.show', $club) }}" class="btn-outline btn-sm">Lihat Detail</a>
         </div>
 
       </div>
       @endforeach
-
-    </div><!-- /#clubGrid -->
+    </div>
 
     <div class="empty-state" id="clubEmpty" style="display:none;">
       <div class="empty-state-icon">🤿</div>
@@ -147,11 +135,19 @@
       <div class="empty-state-desc">Coba kata kunci atau wilayah yang berbeda.</div>
     </div>
 
+    @else
+    <div class="empty-state">
+      <div class="empty-state-icon">🤿</div>
+      <div class="empty-state-title">Belum ada club terdaftar</div>
+      <div class="empty-state-desc">Club selam akan segera hadir.</div>
+    </div>
+    @endif
+
   </div>
 </section>
 
 <!-- ═══════════════ CTA DAFTARKAN CLUB ═══════════════ -->
-<section class="section" style="background:linear-gradient(135deg, var(--ocean-mid) 0%, var(--ocean-deep) 100%); padding:5rem 2rem;">
+<section class="section" style="background:linear-gradient(135deg,var(--ocean-mid) 0%,var(--ocean-deep) 100%);padding:5rem 2rem;">
   <div class="container">
     <div class="club-cta-card fade-in-up">
       <div class="club-cta-icon">🏊</div>
@@ -169,10 +165,10 @@
         </div>
       </div>
       <div class="club-cta-actions">
-        <a href="{{ url('/club/register') }}" class="btn-primary">
-          <span>Daftarkan Club</span>
+        <a href="{{ url('/contact') }}" class="btn-primary">
+          <span>Hubungi Kami</span>
         </a>
-        <a href="{{ url('/contact') }}" class="btn-outline">Hubungi Kami</a>
+        <a href="{{ url('/contact') }}" class="btn-outline">Pelajari Lebih Lanjut</a>
       </div>
     </div>
   </div>
@@ -187,145 +183,87 @@
 .page-header-orb-1 { width:380px;height:380px;background:radial-gradient(circle,rgba(94,231,247,.15),transparent 70%);top:-80px;right:-40px; }
 .page-header-orb-2 { width:260px;height:260px;background:radial-gradient(circle,rgba(26,179,216,.12),transparent 70%);bottom:-40px;left:10%; }
 
-/* ── STATS STRIP ── */
 .club-stats-strip {
-  background: linear-gradient(135deg, var(--ocean-mid), rgba(14,107,138,.3));
-  border-bottom: 1px solid var(--glass-border);
-  padding: 2.5rem 2rem;
+  background:linear-gradient(135deg,var(--ocean-mid),rgba(14,107,138,.3));
+  border-bottom:1px solid var(--glass-border); padding:2.5rem 2rem;
 }
 .club-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 1rem;
-  max-width: 1200px; margin: 0 auto;
-  text-align: center;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;
+  max-width:1200px; margin:0 auto; text-align:center;
 }
-.club-stat-item {}
-.club-stat-value {
-  font-family: var(--font-display);
-  font-size: 2.5rem; font-weight:700;
-  color: var(--ocean-foam); line-height:1;
-}
-.club-stat-label {
-  font-size: .78rem; color: rgba(247,251,252,.5);
-  letter-spacing:.05em; margin-top:6px;
-}
+.club-stat-value { font-family:var(--font-display); font-size:2.5rem; font-weight:700; color:var(--ocean-foam); line-height:1; }
+.club-stat-label { font-size:.78rem; color:rgba(247,251,252,.5); letter-spacing:.05em; margin-top:6px; }
 
-/* ── FILTER ── */
 .club-filter-section {
-  background: rgba(13,38,69,.6);
-  border-bottom: 1px solid var(--glass-border);
-  backdrop-filter: blur(12px);
-  position: sticky; top:72px; z-index:100;
-  padding: 0 2rem;
+  background:rgba(13,38,69,.6); border-bottom:1px solid var(--glass-border);
+  backdrop-filter:blur(12px); position:sticky; top:72px; z-index:100; padding:0 2rem;
 }
 .club-filter-bar {
-  max-width:1200px; margin:0 auto;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:1rem; padding:14px 0; flex-wrap:wrap;
+  max-width:1200px; margin:0 auto; display:flex; align-items:center;
+  justify-content:space-between; gap:1rem; padding:14px 0; flex-wrap:wrap;
 }
 .filter-tabs { display:flex; gap:4px; flex-wrap:wrap; }
 .filter-tab {
-  padding:7px 18px; border-radius:99px;
-  border:1.5px solid transparent; background:transparent;
-  color:rgba(247,251,252,.55); font-family:var(--font-body);
-  font-size:.82rem; font-weight:500; cursor:pointer;
-  transition:all var(--transition);
+  padding:7px 18px; border-radius:99px; border:1.5px solid transparent;
+  background:transparent; color:rgba(247,251,252,.55); font-family:var(--font-body);
+  font-size:.82rem; font-weight:500; cursor:pointer; transition:all var(--transition);
 }
 .filter-tab:hover { color:var(--ocean-white); border-color:var(--glass-border); }
 .filter-tab.active { background:linear-gradient(135deg,var(--ocean-teal),var(--ocean-bright)); color:#fff; }
 .filter-search {
-  display:flex; align-items:center; gap:8px;
-  background:rgba(255,255,255,.05); border:1.5px solid var(--glass-border);
-  border-radius:99px; padding:7px 16px; color:var(--text-muted);
-  transition:border-color var(--transition);
+  display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.05);
+  border:1.5px solid var(--glass-border); border-radius:99px; padding:7px 16px;
+  color:var(--text-muted); transition:border-color var(--transition);
 }
 .filter-search:focus-within { border-color:var(--ocean-bright); color:var(--ocean-white); }
 .filter-search-input {
-  background:none; border:none; outline:none;
-  color:var(--ocean-white); font-family:var(--font-body);
-  font-size:.85rem; width:180px;
+  background:none; border:none; outline:none; color:var(--ocean-white);
+  font-family:var(--font-body); font-size:.85rem; width:180px;
 }
 .filter-search-input::placeholder { color:var(--text-muted); }
 
-/* ── CLUB GRID ── */
-.club-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 20px;
-  margin-bottom: 2rem;
-}
+.club-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:2rem; }
 .club-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  display: flex; flex-direction: column;
-  position: relative;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-  backdrop-filter: blur(12px);
+  background:var(--glass-bg); border:1px solid var(--glass-border);
+  border-radius:var(--radius-md); overflow:hidden; display:flex;
+  flex-direction:column; position:relative;
+  transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition);
+  backdrop-filter:blur(12px);
 }
-.club-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-card), var(--shadow-glow);
-  border-color: rgba(94,231,247,.25);
-}
+.club-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-card),var(--shadow-glow); border-color:rgba(94,231,247,.25); }
 .club-champion-ribbon {
   position:absolute; top:0; right:0;
-  background: linear-gradient(135deg, var(--ocean-gold), #f0c060);
-  color: #0a1628;
-  font-size:.65rem; font-weight:800;
-  letter-spacing:.1em; text-transform:uppercase;
-  padding: 5px 10px 5px 14px;
-  border-radius: 0 0 0 12px;
-  display:flex; align-items:center; gap:4px;
+  background:linear-gradient(135deg,var(--ocean-gold),#f0c060); color:#0a1628;
+  font-size:.65rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 10px 5px 14px; border-radius:0 0 0 12px; display:flex; align-items:center; gap:4px;
 }
-.club-card-header {
-  padding: 1.5rem 1.5rem 0;
-  display:flex; align-items:flex-start; justify-content:space-between;
-}
+.club-card-header { padding:1.5rem 1.5rem 0; display:flex; align-items:flex-start; justify-content:space-between; }
 .club-icon { font-size:2.5rem; line-height:1; }
 .club-verified {
-  display:flex; align-items:center; gap:4px;
-  padding:3px 8px; border-radius:99px;
+  display:flex; align-items:center; gap:4px; padding:3px 8px; border-radius:99px;
   background:rgba(26,179,216,.12); border:1px solid rgba(26,179,216,.25);
-  font-size:.65rem; font-weight:700; color:var(--ocean-bright);
-  letter-spacing:.06em;
+  font-size:.65rem; font-weight:700; color:var(--ocean-bright); letter-spacing:.06em;
 }
 .club-card-body { padding:1rem 1.5rem; flex:1; }
 .club-name { font-family:var(--font-display); font-size:1rem; font-weight:600; margin-bottom:.35rem; color:var(--ocean-white); line-height:1.3; }
 .club-city { display:flex; align-items:center; gap:5px; font-size:.75rem; color:var(--text-muted); margin-bottom:.5rem; }
 .club-specialty {
-  display:inline-block; padding:3px 10px;
-  background:rgba(255,255,255,.06); border:1px solid var(--glass-border);
-  border-radius:4px; font-size:.72rem; color:rgba(247,251,252,.6);
-  margin-bottom:1rem;
+  display:inline-block; padding:3px 10px; background:rgba(255,255,255,.06);
+  border:1px solid var(--glass-border); border-radius:4px; font-size:.72rem;
+  color:rgba(247,251,252,.6); margin-bottom:1rem;
 }
-.club-stats-row {
-  display:flex; align-items:center; gap:.5rem;
-  padding:.75rem; background:rgba(0,0,0,.2); border-radius:8px;
-}
+.club-stats-row { display:flex; align-items:center; gap:.5rem; padding:.75rem; background:rgba(0,0,0,.2); border-radius:8px; }
 .club-mini-stat { flex:1; text-align:center; }
 .club-mini-val { font-family:var(--font-display); font-size:1.1rem; font-weight:700; color:var(--ocean-foam); }
 .club-mini-label { font-size:.65rem; color:rgba(247,251,252,.4); letter-spacing:.04em; margin-top:2px; }
 .club-mini-stat-div { width:1px; height:28px; background:var(--glass-border); }
+.club-card-footer { padding:.75rem 1.5rem 1.25rem; display:flex; gap:.5rem; }
+.club-card-footer .btn-outline { flex:1; justify-content:center; padding:8px 12px !important; font-size:.8rem !important; }
 
-.club-card-footer {
-  padding:.75rem 1.5rem 1.25rem;
-  display:flex; gap:.5rem;
-}
-.club-card-footer .btn-outline, .club-card-footer .btn-primary {
-  flex:1; justify-content:center;
-  padding:8px 12px !important; font-size:.8rem !important;
-}
-
-/* ── CTA ── */
 .club-cta-card {
-  display:flex; align-items:center; gap:2rem;
-  background:var(--glass-bg); border:1px solid var(--glass-border);
-  border-radius:var(--radius-lg); padding:2.5rem;
-  backdrop-filter:blur(16px);
-  flex-wrap:wrap;
+  display:flex; align-items:center; gap:2rem; background:var(--glass-bg);
+  border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:2.5rem;
+  backdrop-filter:blur(16px); flex-wrap:wrap;
 }
 .club-cta-icon { font-size:3.5rem; flex-shrink:0; }
 .club-cta-content { flex:1; min-width:260px; }
@@ -334,18 +272,16 @@
 .club-cta-perks { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; }
 .cta-perk { font-size:.82rem; color:var(--ocean-foam); font-weight:500; }
 .club-cta-actions { display:flex; flex-direction:column; gap:.75rem; flex-shrink:0; }
-
 .btn-sm { padding:9px 20px !important; font-size:.82rem !important; }
 
 @media(max-width:1024px) { .club-grid { grid-template-columns:repeat(2,1fr); } .club-stats-grid { grid-template-columns:repeat(2,1fr); } }
-@media(max-width:640px)  { .club-grid { grid-template-columns:1fr; } .club-stats-grid { grid-template-columns:repeat(2,1fr); } .club-filter-bar { flex-direction:column; } .filter-search-input { width:100%; } .club-cta-card { flex-direction:column; text-align:center; } .club-cta-actions { flex-direction:row; } }
+@media(max-width:640px) { .club-grid { grid-template-columns:1fr; } .club-stats-grid { grid-template-columns:repeat(2,1fr); } .club-filter-bar { flex-direction:column; } .filter-search-input { width:100%; } .club-cta-card { flex-direction:column; text-align:center; } .club-cta-actions { flex-direction:row; } }
 </style>
 @endpush
 
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  /* ── FILTER TABS ── */
   const tabs  = document.querySelectorAll('.filter-tab');
   const cards = document.querySelectorAll('#clubGrid .club-card');
   const empty = document.getElementById('clubEmpty');
@@ -357,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.display = match ? '' : 'none';
       if (match) visible++;
     });
-    empty.style.display = visible === 0 ? 'block' : 'none';
+    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
   }
 
   tabs.forEach(tab => {
@@ -365,26 +301,21 @@ document.addEventListener('DOMContentLoaded', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       filterClubs(tab.dataset.filter);
-      // Reset search
       document.getElementById('clubSearch').value = '';
     });
   });
 
-  /* ── SEARCH ── */
   document.getElementById('clubSearch')?.addEventListener('input', function() {
     const q = this.value.toLowerCase().trim();
-    // Reset tab ke "semua"
     tabs.forEach(t => t.classList.remove('active'));
-    tabs[0].classList.add('active');
-
+    tabs[0]?.classList.add('active');
     let visible = 0;
     cards.forEach(card => {
-      const name = card.dataset.name || '';
-      const match = name.includes(q);
+      const match = (card.dataset.name || '').includes(q);
       card.style.display = match ? '' : 'none';
       if (match) visible++;
     });
-    empty.style.display = visible === 0 ? 'block' : 'none';
+    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
   });
 });
 </script>
