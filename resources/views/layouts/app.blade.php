@@ -12,6 +12,8 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="{{ asset('css/possi.css') }}">
+  <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <!-- Stack for page-specific CSS -->
   @stack('styles')
@@ -27,6 +29,8 @@
     <div class="loader-bar-fill"></div>
   </div>
 </div>
+
+
 
 <!-- ═══════════════════════════════════════
      NAVBAR
@@ -171,6 +175,7 @@
      MAIN CONTENT
      ═══════════════════════════════════════ -->
 <main id="main-content" role="main">
+  <x-aksesibilitas />
   @yield('content')
 </main>
 
@@ -284,6 +289,7 @@
      SCRIPTS
      ═══════════════════════════════════════ -->
 <script src="{{ asset('js/possi.js') }}"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
