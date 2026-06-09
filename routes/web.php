@@ -8,6 +8,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\SatgasController;
+use App\Http\Controllers\PengaduanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +34,10 @@ Route::get('/clubs/{club}', [ClubController::class, 'show'])->name('clubs.show')
 Route::get('/satgas', [SatgasController::class, 'publicIndex'])->name('satgas.index');
 Route::get('/satgas/{satgas}', [SatgasController::class, 'show'])->name('satgas.show');
 
-// CONTACT
-Route::get('/contact', fn() => view('contact'));
-
+// PENGADUAN
+Route::get('/pengaduan',          [PengaduanController::class, 'index'])->name('pengaduan.index');
+Route::post('/pengaduan/kirim',   [PengaduanController::class, 'sendPengaduan'])->name('pengaduan.send');
+Route::get('/pengaduan/tracking',[PengaduanController::class, 'tracking'])->name('pengaduan.tracking');
 
 /*
 |--------------------------------------------------------------------------

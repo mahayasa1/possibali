@@ -73,9 +73,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
        class="nav-link {{ request()->is('clubs*') ? 'active' : '' }}">
       Clubs
     </a>
-    <a href="{{ url('/contact') }}"
-       class="nav-link {{ request()->is('contact*') ? 'active' : '' }}">
-      Contact
+    <a href="{{ url('/pengaduan') }}"
+       class="nav-link {{ request()->is('pengaduan*') ? 'active' : '' }}">
+      Pengaduan
     </a>
   </nav>
 
